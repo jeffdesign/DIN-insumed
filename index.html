@@ -225,6 +225,26 @@
       .btn-primary {
         background: var(--blue);
         color: #fff;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -70%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+          115deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+        transition: left 0.6s var(--ease);
+      }
+      .btn-primary:hover::before {
+        left: 120%;
       }
       .btn-primary:hover {
         transform: translateY(-2px);
@@ -431,9 +451,15 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 56px;
-        align-items: center;
+        align-items: stretch;
         position: relative;
         z-index: 2;
+      }
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
       }
       .hero h1 {
         font-size: clamp(34px, 6.4vw, 64px);
@@ -621,6 +647,108 @@
         100% {
           left: 120%;
         }
+      }
+
+      .hero-visual {
+        perspective: 1000px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hero-visual-inner {
+        position: relative;
+      }
+      .hero-visual-frame {
+        position: relative;
+        border-radius: 22px;
+        overflow: hidden;
+        aspect-ratio: 4 / 5;
+        box-shadow: 0 50px 90px -30px rgba(0, 0, 0, 0.55);
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease-out;
+      }
+      .hero-visual-frame::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 22px;
+        padding: 1px;
+        background: linear-gradient(
+          150deg,
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0) 40%,
+          rgba(112, 152, 204, 0.5)
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .hero-visual-frame image-slot {
+        width: 100%;
+        height: 100%;
+      }
+      .hero-visual-accent {
+        position: absolute;
+        left: -34px;
+        bottom: -34px;
+        width: 42%;
+        aspect-ratio: 1 / 1;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 4px solid var(--navy);
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+        z-index: 4;
+        animation: float 6s ease-in-out infinite;
+        animation-delay: 0.6s;
+      }
+      .hero-visual-accent image-slot {
+        width: 100%;
+        height: 100%;
+      }
+      @media (max-width: 859px) {
+        .hero-visual-accent {
+          display: none;
+        }
+      }
+      .hero-float-badge {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 20px;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(16, 28, 48, 0.72);
+        border: 1px solid var(--line-dark);
+        border-radius: 14px;
+        padding: 14px 18px;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 24px 50px -22px rgba(0, 0, 0, 0.6);
+        animation: float 6s ease-in-out infinite;
+      }
+      .hero-float-badge strong {
+        display: block;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 600;
+      }
+      .hero-float-badge small {
+        font-size: 14px;
+        color: var(--slate-2);
+      }
+      .hero-float-badge--bottom {
+        left: auto;
+        right: 20px;
+        bottom: 20px;
+        top: auto;
+        width: fit-content;
       }
       .hero-ctas .btn-primary {
         position: relative;
@@ -873,7 +1001,7 @@
         display: flex;
         gap: 16px;
         width: max-content;
-        animation: scroll 26s linear infinite;
+        animation: scroll 44s linear infinite;
       }
       .marquee:hover .marquee-track {
         animation-play-state: paused;
@@ -888,20 +1016,22 @@
       }
       .logo-chip {
         flex: none;
-        padding: 16px 26px;
+        width: 168px;
+        height: 64px;
+        padding: 10px 20px;
         border-radius: 12px;
         background: #fff;
         border: 1px solid var(--line-light);
-        font-family: "IBM Plex Mono", monospace;
-        font-weight: 500;
-        font-size: 16px;
-        color: var(--navy-text);
         display: flex;
         align-items: center;
-        letter-spacing: 0.02em;
+        justify-content: center;
         transition:
           border-color 0.3s,
           transform 0.3s;
+      }
+      .logo-chip image-slot {
+        width: 100%;
+        height: 100%;
       }
       .logo-chip:hover {
         border-color: var(--blue);
@@ -949,6 +1079,7 @@
         justify-content: center;
         margin-bottom: 22px;
         transition: transform 0.4s var(--ease);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
       }
       .card:hover .icon-wrap {
         transform: scale(1.08) rotate(-4deg);
@@ -958,11 +1089,19 @@
         height: 24px;
       }
       .icon-blue {
-        background: rgba(44, 94, 164, 0.14);
+        background: linear-gradient(
+          150deg,
+          rgba(44, 94, 164, 0.22),
+          rgba(44, 94, 164, 0.08)
+        );
         color: var(--blue-light);
       }
       .icon-navy {
-        background: rgba(32, 32, 30, 0.08);
+        background: linear-gradient(
+          150deg,
+          rgba(32, 32, 30, 0.14),
+          rgba(32, 32, 30, 0.05)
+        );
         color: var(--near-black);
       }
       .card h3 {
@@ -986,22 +1125,62 @@
         display: flex;
         justify-content: center;
       }
-      .feat-illustration {
-        margin: 0 -24px 56px;
-        border-radius: 16px;
+      .feat-bento {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 22px;
       }
-      .feat-illustration img-slot-wrap {
-        display: block;
+      .feat-bento-img {
+        position: relative;
+        border-radius: var(--radius);
+        overflow: hidden;
+        min-height: 320px;
+      }
+      .feat-bento-img img {
         width: 100%;
-        height: 320px;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s var(--ease);
       }
-      .feat-illustration > img {
-        width: 70%;
-        margin: auto;
-        transition: transform 0.2s;
+      .feat-bento-img:hover img {
+        transform: scale(1.06);
       }
-      .feat-illustration:hover > img {
-        transform: scale(1.1);
+      .feat-bento-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 50%,
+          rgba(3, 12, 26, 0.75)
+        );
+        pointer-events: none;
+      }
+      .feat-bento-tag {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(16, 28, 48, 0.7);
+        border: 1px solid var(--line-dark);
+        border-radius: 100px;
+        padding: 9px 15px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14px;
+        color: #fff;
+        backdrop-filter: blur(10px);
+      }
+      .card-num {
+        position: absolute;
+        top: 26px;
+        right: 28px;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.18);
+        letter-spacing: 0.04em;
+      }
+      .card-dark {
+        position: relative;
       }
 
       /* ============ CASOS DE USO ============ */
@@ -1018,13 +1197,14 @@
         align-items: center;
         justify-content: center;
       }
-      .uc-visual svg {
-        width: 88%;
-        height: 88%;
-        position: relative;
-        z-index: 2;
-        transition: transform 0.5s var(--ease);
+      .uc-card > .uc-visual > img {
+        filter: saturate(0);
+        transition: filter 0.2s;
       }
+      .uc-card:hover > .uc-visual > img {
+        filter: saturate(1);
+      }
+
       .card:hover .uc-visual svg {
         transform: scale(1.12);
       }
@@ -1034,16 +1214,13 @@
         gap: 40px;
         align-items: stretch;
       }
-      .uc-image {
+      .uc-video {
         border-radius: var(--radius);
         overflow: hidden;
-        min-height: 280px;
-      }
-      .uc-image img {
-        transition: transform 0.2s;
-      }
-      .uc-image img:hover {
-        transform: scale(1.1);
+        width: 580px;
+        height: 700px;
+        object-fit: cover;
+        mask-image: linear-gradient(180deg, white 60%, transparent);
       }
 
       .uc-carousel {
@@ -1082,7 +1259,7 @@
         align-items: center;
         justify-content: center;
         gap: 16px;
-        margin-top: 98px;
+        margin-top: 180px;
       }
       .uc-arrow {
         width: 38px;
@@ -1124,23 +1301,9 @@
       }
       .uc-dots button.active {
         background: var(--blue);
-        width: 22px;
+        transform: scale(1.3);
       }
-      .uc-visual::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: 0.9;
-      }
-      .uc1 .uc-visual::before {
-        background: linear-gradient(135deg, #2c5ea4, #032c60);
-      }
-      .uc2 .uc-visual::before {
-        background: linear-gradient(135deg, #20201e, #032c60);
-      }
-      .uc3 .uc-visual::before {
-        background: linear-gradient(135deg, #0c3d78, #20201e);
-      }
+
       .uc-visual svg {
         color: #fff;
       }
@@ -1269,6 +1432,54 @@
         border-radius: 50%;
         background: var(--blue-light);
         box-shadow: 0 0 14px 3px rgba(112, 152, 204, 0.85);
+      }
+
+      /* ============ EDITORIAL BREAK ============ */
+      .editorial-break {
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0;
+        background-image: url(./assets/img-bg-proveedor.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .editorial-break image-slot {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .editorial-break-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(3, 12, 26, 0.55),
+          rgba(3, 12, 26, 0.78)
+        );
+        z-index: 1;
+      }
+      .editorial-break-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 720px;
+      }
+      .editorial-break-eyebrow {
+        color: var(--blue-light);
+        font-size: 15px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .editorial-break h2 {
+        color: #fff;
+        font-size: clamp(28px, 4.2vw, 44px);
       }
 
       /* ============ VALUE PROP ============ */
@@ -1518,10 +1729,134 @@
       }
       .testi-dots button.active {
         background: var(--blue-light);
-        width: 22px;
+        transform: scale(1.3);
       }
 
-      /* ============ FAQ ============ */
+      /* ============ TESTIMONIALS MARQUEE ============ */
+      .testi-marquee {
+        margin-top: 50px;
+        overflow: hidden;
+        position: relative;
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent,
+          black 6%,
+          black 94%,
+          transparent
+        );
+        mask-image: linear-gradient(
+          90deg,
+          transparent,
+          black 6%,
+          black 94%,
+          transparent
+        );
+      }
+      .testi-track {
+        display: flex;
+        gap: 22px;
+        width: max-content;
+        animation: testiScroll 34s linear infinite;
+      }
+      .testi-marquee:hover .testi-track {
+        animation-play-state: paused;
+      }
+      @keyframes testiScroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .testi-mcard {
+        flex: none;
+        width: 380px;
+        background: var(--navy-soft);
+        border: 1px solid var(--line-dark);
+        border-radius: 16px;
+        padding: 30px;
+        position: relative;
+        transition:
+          transform 0.4s var(--ease),
+          box-shadow 0.4s var(--ease),
+          border-color 0.3s;
+      }
+      .testi-mcard::before {
+        content: "\201C";
+        position: absolute;
+        top: 14px;
+        right: 22px;
+        font-family: "Fraunces", serif;
+        font-size: 64px;
+        line-height: 1;
+        color: rgba(112, 152, 204, 0.18);
+      }
+      .testi-mcard:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+        border-color: rgba(112, 152, 204, 0.4);
+      }
+      .testi-mcard .testi-stars {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 16px;
+      }
+      .testi-mcard .testi-stars svg {
+        width: 16px;
+        height: 16px;
+        color: #f5c451;
+        flex: none;
+      }
+      .testi-mcard .testi-quote {
+        font-family: "Fraunces", serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #fff;
+        font-style: italic;
+        min-height: 108px;
+      }
+      .testi-mcard .testi-foot {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 24px;
+      }
+      /* ============ VALUE TICKER ============ */
+      .value-ticker {
+        background: var(--near-black);
+        border-top: 1px solid var(--line-dark);
+        border-bottom: 1px solid var(--line-dark);
+        overflow: hidden;
+        padding: 14px 0;
+      }
+      .value-ticker-track {
+        display: flex;
+        width: max-content;
+        gap: 14px;
+        white-space: nowrap;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 14px;
+        letter-spacing: 0.03em;
+        color: rgba(243, 245, 243, 0.7);
+        animation: valueTicker 28s linear infinite;
+      }
+      .value-ticker:hover .value-ticker-track {
+        animation-play-state: paused;
+      }
+      .vt-dot {
+        color: var(--blue-light);
+      }
+      @keyframes valueTicker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
       .faq-item {
         border-bottom: 1px solid var(--line-light);
       }
@@ -1622,7 +1957,7 @@
         backdrop-filter: blur(10px);
       }
       .f-group {
-        margin-bottom: 26px;
+        margin-bottom: 34px;
       }
       .f-label {
         font-size: 16px;
@@ -1634,7 +1969,7 @@
       .pill-group {
         display: flex;
         flex-wrap: wrap;
-        gap: 9px;
+        gap: 12px;
       }
       .pill {
         padding: 10px 16px;
@@ -1656,7 +1991,7 @@
       .f-row {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 20px;
       }
       .f-input {
         width: 100%;
@@ -1694,6 +2029,222 @@
         margin-top: 16px;
         font-size: 16px;
         color: rgba(255, 255, 255, 0.65);
+      }
+
+      /* ============ MULTI-STEP FORM ============ */
+      .step-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+      .step-dots {
+        display: flex;
+        gap: 8px;
+      }
+      .step-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.22);
+        transition: all 0.3s var(--ease);
+      }
+      .step-dot.active {
+        background: #fff;
+        width: 22px;
+        border-radius: 100px;
+      }
+      .step-dot.done {
+        background: rgba(255, 255, 255, 0.55);
+      }
+      .step-label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .step-progress {
+        height: 3px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.14);
+        overflow: hidden;
+        margin-bottom: 36px;
+      }
+      .step-progress-fill {
+        height: 100%;
+        width: 33.33%;
+        background: #fff;
+        border-radius: 100px;
+        transition: width 0.45s var(--ease);
+      }
+      .f-step {
+        animation: stepIn 0.4s var(--ease);
+      }
+      @keyframes stepIn {
+        from {
+          opacity: 0;
+          transform: translateX(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .step-error {
+        color: #ffb4a8;
+        font-size: 16px;
+        margin: -10px 0 16px;
+      }
+      .step-nav {
+        display: flex;
+        gap: 12px;
+        margin-top: 26px;
+      }
+      .step-nav [hidden] {
+        display: none !important;
+      }
+
+      /* ============ QUOTE MODAL ============ */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1300;
+        background: rgba(3, 12, 26, 0.72);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s var(--ease);
+      }
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-card {
+        position: relative;
+        width: 100%;
+        max-width: 640px;
+        max-height: 94vh;
+        overflow-y: auto;
+        background: var(--navy);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 20px;
+        padding: 22px;
+        color: #fff;
+        transform: translateY(24px) scale(0.97);
+        transition:
+          transform 0.4s var(--ease),
+          opacity 0.35s var(--ease);
+        opacity: 0;
+      }
+      .modal-overlay.open .modal-card {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      .modal-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .modal-intro {
+        text-align: center;
+        max-width: 420px;
+      }
+      .modal-intro .eyebrow {
+        margin-bottom: 6px;
+        padding: 4px 10px;
+        font-size: 13px;
+      }
+      .modal-intro h2 {
+        line-height: 1.15;
+        font-size: clamp(17px, 2.2vw, 20px) !important;
+      }
+      .modal-card .form-card {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 16px 20px;
+      }
+      .step-body {
+        min-height: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .modal-card .step-head {
+        margin-bottom: 8px;
+      }
+      .modal-card .f-group {
+        margin-bottom: 10px;
+      }
+      .modal-card .f-label {
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+      .modal-card .pill-group {
+        gap: 6px;
+      }
+      .modal-card .pill {
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+      .modal-card .f-input {
+        padding: 9px 13px;
+        font-size: 13px;
+      }
+      .modal-card .step-progress {
+        margin-bottom: 10px;
+      }
+      .modal-card .step-nav {
+        margin-top: 9px;
+      }
+      .modal-card .step-nav .btn {
+        padding: 10px 18px;
+        font-size: 14px;
+      }
+      .modal-card .trust-note {
+        margin-top: 6px;
+        font-size: 12px;
+      }
+      .modal-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition:
+          background 0.3s,
+          transform 0.3s var(--ease);
+      }
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.16);
+        transform: rotate(90deg);
+      }
+      .modal-close svg {
+        width: 16px;
+        height: 16px;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      .step-nav .step-next,
+      .step-nav .submit-btn {
+        flex: 1;
+        justify-content: center;
+      }
+      .step-nav .step-back {
+        flex: none;
       }
 
       /* ============ FOOTER ============ */
@@ -1772,6 +2323,14 @@
         .grid-3 {
           grid-template-columns: repeat(3, 1fr);
         }
+        .feat-bento {
+          grid-template-columns: 1fr 1.15fr;
+          align-items: stretch;
+        }
+        .feat-bento .grid-3 {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
         .vp-wrap {
           grid-template-columns: 1fr 1.1fr;
         }
@@ -1799,7 +2358,7 @@
           padding: 150px 0;
         }
         .hero {
-          padding-top: 0;
+          padding-top: 120px;
         }
       }
       @media (min-width: 860px) and (max-width: 1023px) {
@@ -2261,13 +2820,7 @@
         <div class="hero-orb hero-orb--3"></div>
       </div>
       <div class="wrap hero-grid">
-        <div>
-          <div
-            class="eyebrow eyebrow-dark hero-anim"
-            style="animation-delay: 0s"
-          >
-            <span class="dot dot-live"></span> Stock disponible ahora
-          </div>
+        <div class="hero-copy">
           <h1 style="animation-delay: 0s">
             <span class="hw" style="animation-delay: 0.12s">Reactivos</span>
             <span class="hw" style="animation-delay: 0.19s">con</span>
@@ -2338,52 +2891,29 @@
           </div>
         </div>
         <div
-          class="hero-anim panel-tilt-wrap"
+          class="hero-anim hero-visual"
           id="heroPanelWrap"
           style="animation-delay: 0.4s"
         >
-          <div class="panel">
-            <div class="panel-head">
-              <span class="panel-title">Inventario en tiempo real</span>
-              <span class="mono" style="font-size: 16px; color: var(--slate-2)"
-                >CDMX · GDL · MTY</span
-              >
+          <div class="hero-visual-inner">
+            <div class="hero-visual-frame">
+              <img src="./assets/img-hero.png" alt="" />
+              <div class="hero-float-badge">
+                <span class="dot dot-live"></span>
+                <div>
+                  <strong>Embarque el mismo día</strong>
+                  <small>Pago confirmado antes de la 1 pm</small>
+                </div>
+              </div>
+              <div class="hero-float-badge hero-float-badge--bottom">
+                <span class="dot dot-live"></span>
+                <div>
+                  <strong>Stock disponible ahora</strong>
+                </div>
+              </div>
             </div>
-            <div class="panel-row">
-              <div class="panel-item">
-                <span>HbA1c · Wondfo</span><small>Inmunofluorescencia</small>
-              </div>
-              <div class="panel-status status-ok">
-                <span class="dot dot-live"></span>Disponible
-              </div>
-              <span class="panel-qty" data-count="182">0</span>
-            </div>
-            <div class="panel-row">
-              <div class="panel-item">
-                <span>PSA · Finecare</span><small>Inmunofluorescencia</small>
-              </div>
-              <div class="panel-status status-ok">
-                <span class="dot dot-live"></span>Disponible
-              </div>
-              <span class="panel-qty" data-count="94">0</span>
-            </div>
-            <div class="panel-row">
-              <div class="panel-item">
-                <span>β-hCG · Finecare</span><small>Inmunofluorescencia</small>
-              </div>
-              <div class="panel-status status-warn">
-                <span class="dot dot-warn"></span>Últimas unidades
-              </div>
-              <span class="panel-qty" data-count="12">0</span>
-            </div>
-            <div class="panel-row">
-              <div class="panel-item">
-                <span>Química clínica</span><small>Panel completo</small>
-              </div>
-              <div class="panel-status status-ok">
-                <span class="dot dot-live"></span>Disponible
-              </div>
-              <span class="panel-qty" data-count="340">0</span>
+            <div class="hero-visual-accent">
+              <img src="./assets/hero-img-2.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -2400,6 +2930,24 @@
         </svg>
       </div>
     </section>
+
+    <!-- ============ VALUE TICKER ============ -->
+    <div class="value-ticker">
+      <div class="value-ticker-track">
+        <span>100% en línea</span><span class="vt-dot">·</span>
+        <span>Stock real, no sobre pedido</span><span class="vt-dot">·</span>
+        <span>Master Dealer oficial Wondfo</span><span class="vt-dot">·</span>
+        <span>Embarque el mismo día</span><span class="vt-dot">·</span>
+        <span>Envíos a toda la República</span><span class="vt-dot">·</span>
+        <span>Facturación disponible</span><span class="vt-dot">·</span>
+        <span>100% en línea</span><span class="vt-dot">·</span>
+        <span>Stock real, no sobre pedido</span><span class="vt-dot">·</span>
+        <span>Master Dealer oficial Wondfo</span><span class="vt-dot">·</span>
+        <span>Embarque el mismo día</span><span class="vt-dot">·</span>
+        <span>Envíos a toda la República</span><span class="vt-dot">·</span>
+        <span>Facturación disponible</span><span class="vt-dot">·</span>
+      </div>
+    </div>
 
     <!-- ============ LOGOS / SOCIAL PROOF ============ -->
     <section class="sec-light">
@@ -2433,23 +2981,38 @@
       </div>
       <div class="marquee reveal">
         <div class="marquee-track" id="marqueeTrack">
-          <div class="logo-chip">WONDFO</div>
-          <div class="logo-chip">FUJI</div>
-          <div class="logo-chip">MINDRAY</div>
-          <div class="logo-chip">D-MIND</div>
-          <div class="logo-chip">INNOVATIUM</div>
-          <div class="logo-chip">SPINREACT</div>
-          <div class="logo-chip">ELITECH</div>
-          <div class="logo-chip">BIOSYSTEMS</div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-1.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-2.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-3.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-4.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-5.jpg" alt="" />
+          </div>
+
           <!-- duplicate for seamless loop -->
-          <div class="logo-chip">WONDFO</div>
-          <div class="logo-chip">FUJI</div>
-          <div class="logo-chip">MINDRAY</div>
-          <div class="logo-chip">D-MIND</div>
-          <div class="logo-chip">INNOVATIUM</div>
-          <div class="logo-chip">SPINREACT</div>
-          <div class="logo-chip">ELITECH</div>
-          <div class="logo-chip">BIOSYSTEMS</div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-1.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-2.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-3.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-4.jpg" alt="" />
+          </div>
+          <div class="logo-chip">
+            <img src="./assets/Logo-5.jpg" alt="" />
+          </div>
         </div>
       </div>
     </section>
@@ -2462,68 +3025,77 @@
           <h2>Lo que cambia cuando compras con Insumed</h2>
         </div>
 
-        <!-- Ilustración de apoyo: persona comprando medicamentos/reactivos -->
-        <div class="feat-illustration reveal">
-          <img src="./assets/img-beneficios.png" alt="" />
-        </div>
+        <div class="feat-bento">
+          <div class="grid-3">
+            <div class="card card-dark reveal">
+              <span class="card-num mono">01</span>
+              <div class="icon-wrap icon-blue">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M21 21l-4.3-4.3" />
+                </svg>
+              </div>
+              <h3>Confirma stock sin perder horas</h3>
+              <p>
+                Recibes respuesta ágil sobre disponibilidad real para decidir
+                rápido y evitar cotizaciones inviables.
+              </p>
+            </div>
+            <div class="card card-dark reveal" style="transition-delay: 0.1s">
+              <span class="card-num mono">02</span>
+              <div class="icon-wrap icon-blue">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                >
+                  <path d="M3 13l3-8h12l3 8M3 13v6h18v-6M3 13h18" />
+                  <circle cx="7.5" cy="19" r="1.5" />
+                  <circle cx="16.5" cy="19" r="1.5" />
+                </svg>
+              </div>
+              <h3>Repón reactivos antes de que detengan tu operación</h3>
+              <p>
+                Insumed mantiene stock permanente en líneas críticas y opera con
+                despacho express para reducir quiebres y retrasos.
+              </p>
+            </div>
+            <div class="card card-dark reveal" style="transition-delay: 0.2s">
+              <span class="card-num mono">03</span>
+              <div class="icon-wrap icon-blue">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                >
+                  <path
+                    d="M9 3v6l-5 9a2 2 0 0 0 1.7 3h12.6a2 2 0 0 0 1.7-3l-5-9V3"
+                  />
+                  <path d="M8 3h8" />
+                </svg>
+              </div>
+              <h3>Ofrece pruebas de mayor valor sin invertir de más</h3>
+              <p>
+                Accede a soluciones Wondfo/Finecare (HbA1c, PSA, fracción beta)
+                con una alternativa viable para laboratorios medianos y
+                pequeños.
+              </p>
+            </div>
+          </div>
 
-        <div class="grid-3">
-          <div class="card card-dark reveal">
-            <div class="icon-wrap icon-blue">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7"
-              >
-                <circle cx="11" cy="11" r="7" />
-                <path d="M21 21l-4.3-4.3" />
-              </svg>
+          <div class="feat-bento-img reveal-scale">
+            <img src="./assets/img-beneficios.png" alt="" />
+            <div class="feat-bento-img-overlay"></div>
+            <div class="feat-bento-tag">
+              <span class="dot dot-live"></span> Insumed en acción
             </div>
-            <h3>Confirma stock sin perder horas</h3>
-            <p>
-              Recibes respuesta ágil sobre disponibilidad real para decidir
-              rápido y evitar cotizaciones inviables.
-            </p>
-          </div>
-          <div class="card card-dark reveal" style="transition-delay: 0.1s">
-            <div class="icon-wrap icon-blue">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7"
-              >
-                <path d="M3 13l3-8h12l3 8M3 13v6h18v-6M3 13h18" />
-                <circle cx="7.5" cy="19" r="1.5" />
-                <circle cx="16.5" cy="19" r="1.5" />
-              </svg>
-            </div>
-            <h3>Repón reactivos antes de que detengan tu operación</h3>
-            <p>
-              Insumed mantiene stock permanente en líneas críticas y opera con
-              despacho express para reducir quiebres y retrasos.
-            </p>
-          </div>
-          <div class="card card-dark reveal" style="transition-delay: 0.2s">
-            <div class="icon-wrap icon-blue">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.7"
-              >
-                <path
-                  d="M9 3v6l-5 9a2 2 0 0 0 1.7 3h12.6a2 2 0 0 0 1.7-3l-5-9V3"
-                />
-                <path d="M8 3h8" />
-              </svg>
-            </div>
-            <h3>Ofrece pruebas de mayor valor sin invertir de más</h3>
-            <p>
-              Accede a soluciones Wondfo/Finecare (HbA1c, PSA, fracción beta)
-              con una alternativa viable para laboratorios medianos y pequeños.
-            </p>
           </div>
         </div>
         <div class="feat-cta reveal">
@@ -2549,37 +3121,20 @@
           <h2>Hecho para compras reales de laboratorio</h2>
         </div>
         <div class="uc-split reveal">
-          <div class="uc-image">
-            <img src="./assets/img-casouso.jpg" alt="" />
-          </div>
+          <video
+            class="uc-video"
+            src="./assets/video-nosotros.mp4"
+            autoplay
+            muted
+            loop
+          ></video>
           <div class="sec-head-cards">
             <div class="uc-carousel" id="ucCarousel">
               <div class="card card-light uc-card uc1 uc-slide" data-pos="0">
                 <div class="uc-visual">
-                  <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
-                    <g
-                      stroke="#fff"
-                      stroke-width="2.6"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <!-- vial -->
-                      <path
-                        d="M108 30v22M108 30c-11 0-19 7-19 17v34a17 17 0 0 0 34 0V69c0-10-8-17-19-17z"
-                      />
-                      <path d="M96 30h24" />
-                      <path d="M89 78h38" opacity="0.6" />
-                      <!-- motion / urgencia -->
-                      <path d="M150 46h26M150 60h34M150 74h20" opacity="0.85" />
-                      <!-- reloj urgente -->
-                      <circle cx="60" cy="100" r="16" />
-                      <path d="M60 91v9l7 5" />
-                    </g>
-                    <circle cx="132" cy="52" r="4.5" fill="#3FA76B" />
-                  </svg>
+                  <img src="./assets/img-card-1.jpg" alt="" />
                 </div>
-                <h3>Para compras urgentes de reactivos críticos</h3>
+                <h2>Para compras urgentes de reactivos críticos</h2>
                 <p>
                   Si un reactivo está por agotarse, confirma stock y tiempo de
                   embarque para mantener tu laboratorio operando sin pausas.
@@ -2587,31 +3142,9 @@
               </div>
               <div class="card card-light uc-card uc2 uc-slide" data-pos="1">
                 <div class="uc-visual">
-                  <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
-                    <g
-                      stroke="#fff"
-                      stroke-width="2.6"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <!-- panel de 4 pruebas -->
-                      <rect x="52" y="42" width="26" height="64" rx="6" />
-                      <path d="M52 76h26" opacity="0.6" />
-                      <rect x="90" y="30" width="26" height="76" rx="6" />
-                      <path d="M90 66h26" opacity="0.6" />
-                      <rect x="128" y="52" width="26" height="54" rx="6" />
-                      <path d="M128 82h26" opacity="0.6" />
-                      <rect x="166" y="38" width="26" height="68" rx="6" />
-                      <path d="M166 70h26" opacity="0.6" />
-                    </g>
-                    <circle cx="65" cy="58" r="3.5" fill="#3FA76B" />
-                    <circle cx="103" cy="48" r="3.5" fill="#7098CC" />
-                    <circle cx="141" cy="66" r="3.5" fill="#3FA76B" />
-                    <circle cx="179" cy="52" r="3.5" fill="#7098CC" />
-                  </svg>
+                  <img src="./assets/img-card-2.jpg" alt="" />
                 </div>
-                <h3>Para ampliar tu menú de pruebas</h3>
+                <h2>Para ampliar tu menú de pruebas</h2>
                 <p>
                   Si buscas incorporar HbA1c, PSA, fracción beta y otros
                   analitos, Insumed te ayuda a acceder a inmunofluorescencia
@@ -2620,39 +3153,9 @@
               </div>
               <div class="card card-light uc-card uc3 uc-slide" data-pos="2">
                 <div class="uc-visual">
-                  <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
-                    <g
-                      stroke="#fff"
-                      stroke-width="2.4"
-                      fill="none"
-                      stroke-linecap="round"
-                    >
-                      <path d="M62 55L118 40" stroke-dasharray="4 6" />
-                      <path d="M118 40L172 92" stroke-dasharray="4 6" />
-                      <path d="M62 55L172 92" stroke-dasharray="4 6" />
-                    </g>
-                    <g>
-                      <circle cx="62" cy="55" r="10" fill="#7098CC" />
-                      <circle cx="118" cy="40" r="13" fill="#2C5EA4" />
-                      <circle cx="172" cy="92" r="10" fill="#7098CC" />
-                    </g>
-                    <g fill="#fff">
-                      <circle cx="62" cy="55" r="3.5" />
-                      <circle cx="118" cy="40" r="4" />
-                      <circle cx="172" cy="92" r="3.5" />
-                    </g>
-                    <circle
-                      cx="118"
-                      cy="40"
-                      r="20"
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="1.4"
-                      opacity="0.5"
-                    />
-                  </svg>
+                  <img src="./assets/img-card-3.jpg" alt="" />
                 </div>
-                <h3>Para cuentas multisitio y resurtido recurrente</h3>
+                <h2>Para cuentas multisitio y resurtido recurrente</h2>
                 <p>
                   Centraliza compras con un proveedor que atiende varias sedes y
                   da seguimiento directo entre sucursales.
@@ -2761,6 +3264,15 @@
       </div>
     </section>
 
+    <!-- ============ EDITORIAL BREAK ============ -->
+    <section class="editorial-break">
+      <div class="editorial-break-overlay"></div>
+      <div class="wrap editorial-break-content reveal-scale">
+        <p class="editorial-break-eyebrow mono">Insumed</p>
+        <h2>Un proveedor que se comporta como parte de tu equipo</h2>
+      </div>
+    </section>
+
     <!-- ============ VALUE PROP ============ -->
     <section class="sec-light" id="valueprop">
       <div class="wrap vp-wrap">
@@ -2858,177 +3370,241 @@
     <!-- ============ TESTIMONIALS ============ -->
     <section class="sec-dark-alt">
       <div class="wrap">
-        <div class="sec-head reveal review-flex">
+        <div class="sec-head reveal">
           <div class="eyebrow eyebrow-dark">Testimonios</div>
           <h2>Lo que un buen proveedor cambia en la operación</h2>
         </div>
-        <div>
-          <div class="review-flex">
-            <div class="testi-stack reveal" id="testiStack">
-              <div class="testi-card" data-pos="0">
-                <div class="testi-stars">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                </div>
-                <p class="testi-quote">
-                  "Antes esperaba horas para saber si había stock. Ahora me
-                  confirman al momento y el reactivo llega el mismo día; mi
-                  laboratorio no se detiene."
-                </p>
-                <div class="testi-foot">
-                  <div class="avatar" style="background: var(--blue)">LM</div>
-                  <div>
-                    <strong>Laura M.</strong
-                    ><span>Administradora de laboratorio · Puebla</span>
-                  </div>
-                </div>
+      </div>
+      <div class="testi-marquee reveal">
+        <div class="testi-track" id="testiTrack">
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Antes esperaba horas para saber si había stock. Ahora me
+              confirman al momento y el reactivo llega el mismo día; mi
+              laboratorio no se detiene."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: var(--blue); color: #fff">
+                LM
               </div>
-              <div class="testi-card" data-pos="1">
-                <div class="testi-stars">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                </div>
-                <p class="testi-quote">
-                  "Lo que más valoro es la honestidad: si no lo tienen, me lo
-                  dicen de una vez y no pierdo el día esperando."
-                </p>
-                <div class="testi-foot">
-                  <div
-                    class="avatar"
-                    style="background: var(--navy); color: #fff"
-                  >
-                    RT
-                  </div>
-                  <div>
-                    <strong>Dr. Ricardo T.</strong
-                    ><span>Responsable de laboratorio clínico · Tlaxcala</span>
-                  </div>
-                </div>
-              </div>
-              <div class="testi-card" data-pos="2">
-                <div class="testi-stars">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path
-                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    />
-                  </svg>
-                </div>
-                <p class="testi-quote">
-                  "Manejo tres sedes y consolidar todo con Insumed me quitó el
-                  dolor de cabeza del resurtido; un solo contacto y respuesta
-                  rápida."
-                </p>
-                <div class="testi-foot">
-                  <div class="avatar" style="background: #2c4a6b">MG</div>
-                  <div>
-                    <strong>Mariana G.</strong
-                    ><span
-                      >Coordinadora de compras · Clínica multisitio, CDMX</span
-                    >
-                  </div>
-                </div>
+              <div>
+                <strong>Laura M.</strong
+                ><span>Administradora de laboratorio · Puebla</span>
               </div>
             </div>
-            <div class="testi-controls">
-              <button
-                class="testi-arrow"
-                id="testiPrev"
-                aria-label="Testimonio anterior"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <div class="testi-dots" id="testiDots">
-                <button class="active" data-i="0"></button>
-                <button data-i="1"></button>
-                <button data-i="2"></button>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Lo que más valoro es la honestidad: si no lo tienen, me lo dicen
+              de una vez y no pierdo el día esperando."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: var(--navy); color: #fff">
+                RT
               </div>
-              <button
-                class="testi-arrow"
-                id="testiNext"
-                aria-label="Testimonio siguiente"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
+              <div>
+                <strong>Dr. Ricardo T.</strong
+                ><span>Responsable de laboratorio clínico · Tlaxcala</span>
+              </div>
+            </div>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Manejo tres sedes y consolidar todo con Insumed me quitó el dolor
+              de cabeza del resurtido; un solo contacto y respuesta rápida."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: #2c4a6b; color: #fff">
+                MG
+              </div>
+              <div>
+                <strong>Mariana G.</strong
+                ><span>Coordinadora de compras · Clínica multisitio, CDMX</span>
+              </div>
+            </div>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Antes esperaba horas para saber si había stock. Ahora me
+              confirman al momento y el reactivo llega el mismo día; mi
+              laboratorio no se detiene."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: var(--blue); color: #fff">
+                LM
+              </div>
+              <div>
+                <strong>Laura M.</strong
+                ><span>Administradora de laboratorio · Puebla</span>
+              </div>
+            </div>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Lo que más valoro es la honestidad: si no lo tienen, me lo dicen
+              de una vez y no pierdo el día esperando."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: var(--navy); color: #fff">
+                RT
+              </div>
+              <div>
+                <strong>Dr. Ricardo T.</strong
+                ><span>Responsable de laboratorio clínico · Tlaxcala</span>
+              </div>
+            </div>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Manejo tres sedes y consolidar todo con Insumed me quitó el dolor
+              de cabeza del resurtido; un solo contacto y respuesta rápida."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: #2c4a6b; color: #fff">
+                MG
+              </div>
+              <div>
+                <strong>Mariana G.</strong
+                ><span>Coordinadora de compras · Clínica multisitio, CDMX</span>
+              </div>
             </div>
           </div>
         </div>
@@ -3131,91 +3707,114 @@
           class="form-card reveal"
           id="quoteForm"
           style="transition-delay: 0.1s"
+          novalidate
         >
-          <div class="f-group">
-            <span class="f-label">¿Qué tipo de negocio tienes?</span>
-            <div class="pill-group" data-group="negocio">
-              <button type="button" class="pill">Laboratorio clínico</button>
-              <button type="button" class="pill">
-                Clínica con laboratorio
-              </button>
-              <button type="button" class="pill">Consultorio</button>
-              <button type="button" class="pill">Hospital</button>
-              <button type="button" class="pill">Distribuidor / Otro</button>
+          <div class="step-head">
+            <div class="step-dots">
+              <span class="step-dot active" data-i="0"></span>
+              <span class="step-dot" data-i="1"></span>
+              <span class="step-dot" data-i="2"></span>
+            </div>
+            <span class="step-label">Paso 1 de 3</span>
+          </div>
+          <div class="step-progress">
+            <div class="step-progress-fill"></div>
+          </div>
+
+          <div class="f-step" data-step="0">
+            <div class="f-group">
+              <span class="f-label">¿Qué tipo de negocio tienes?</span>
+              <div class="pill-group" data-group="negocio" data-required>
+                <button type="button" class="pill">Laboratorio clínico</button>
+                <button type="button" class="pill">
+                  Clínica con laboratorio
+                </button>
+                <button type="button" class="pill">Consultorio</button>
+                <button type="button" class="pill">Hospital</button>
+                <button type="button" class="pill">Distribuidor / Otro</button>
+              </div>
+            </div>
+            <div class="f-group" style="margin-bottom: 0">
+              <span class="f-label">¿Qué necesitas cotizar?</span>
+              <div class="pill-group" data-group="producto" data-required>
+                <button type="button" class="pill">
+                  Inmunofluorescencia (Wondfo/Finecare)
+                </button>
+                <button type="button" class="pill">Química clínica</button>
+                <button type="button" class="pill">Hematología</button>
+                <button type="button" class="pill">
+                  Consumibles e insumos
+                </button>
+                <button type="button" class="pill">No estoy seguro</button>
+              </div>
             </div>
           </div>
-          <div class="f-group">
-            <span class="f-label">¿Qué necesitas cotizar?</span>
-            <div class="pill-group" data-group="producto">
-              <button type="button" class="pill">
-                Inmunofluorescencia (Wondfo/Finecare)
-              </button>
-              <button type="button" class="pill">Química clínica</button>
-              <button type="button" class="pill">Hematología</button>
-              <button type="button" class="pill">Consumibles e insumos</button>
-              <button type="button" class="pill">No estoy seguro</button>
+
+          <div class="f-step" data-step="1" hidden>
+            <div class="f-group">
+              <span class="f-label">¿Con qué urgencia lo necesitas?</span>
+              <div class="pill-group" data-group="urgencia" data-required>
+                <button type="button" class="pill">Hoy / urgente</button>
+                <button type="button" class="pill">Esta semana</button>
+                <button type="button" class="pill">Resurtido programado</button>
+                <button type="button" class="pill">Solo cotizando</button>
+              </div>
+            </div>
+            <div class="f-group">
+              <span class="f-label">¿En qué estado te encuentras?</span>
+              <div class="pill-group" data-group="estado" data-required>
+                <button type="button" class="pill">Tlaxcala</button>
+                <button type="button" class="pill">Puebla</button>
+                <button type="button" class="pill">CDMX / Edomex</button>
+                <button type="button" class="pill">Otro estado</button>
+              </div>
+            </div>
+            <div class="f-group" style="margin-bottom: 0">
+              <span class="f-label">¿Compra puntual o recurrente?</span>
+              <div class="pill-group" data-group="tipo_compra" data-required>
+                <button type="button" class="pill">Compra puntual</button>
+                <button type="button" class="pill">Resurtido recurrente</button>
+                <button type="button" class="pill">Cuenta multisitio</button>
+              </div>
             </div>
           </div>
-          <div class="f-group">
-            <span class="f-label">¿Con qué urgencia lo necesitas?</span>
-            <div class="pill-group" data-group="urgencia">
-              <button type="button" class="pill">Hoy / urgente</button>
-              <button type="button" class="pill">Esta semana</button>
-              <button type="button" class="pill">Resurtido programado</button>
-              <button type="button" class="pill">Solo cotizando</button>
+
+          <div class="f-step" data-step="2" hidden>
+            <div class="f-group f-row f-row-2">
+              <input
+                class="f-input"
+                type="text"
+                name="nombre"
+                placeholder="Nombre"
+                required
+              />
+              <input
+                class="f-input"
+                type="text"
+                name="empresa"
+                placeholder="Laboratorio / clínica"
+                required
+              />
+            </div>
+            <div class="f-group f-row f-row-2" style="margin-bottom: 0">
+              <input
+                class="f-input"
+                type="tel"
+                name="whatsapp"
+                placeholder="WhatsApp (obligatorio)"
+                required
+              />
+              <input
+                class="f-input"
+                type="email"
+                name="correo"
+                placeholder="Correo (opcional)"
+              />
             </div>
           </div>
-          <div class="f-group">
-            <span class="f-label">¿En qué estado te encuentras?</span>
-            <div class="pill-group" data-group="estado">
-              <button type="button" class="pill">Tlaxcala</button>
-              <button type="button" class="pill">Puebla</button>
-              <button type="button" class="pill">CDMX / Edomex</button>
-              <button type="button" class="pill">Otro estado</button>
-            </div>
-          </div>
-          <div class="f-group">
-            <span class="f-label">¿Compra puntual o recurrente?</span>
-            <div class="pill-group" data-group="tipo_compra">
-              <button type="button" class="pill">Compra puntual</button>
-              <button type="button" class="pill">Resurtido recurrente</button>
-              <button type="button" class="pill">Cuenta multisitio</button>
-            </div>
-          </div>
-          <div class="f-group f-row f-row-2">
-            <input
-              class="f-input"
-              type="text"
-              name="nombre"
-              placeholder="Nombre"
-              required
-            />
-            <input
-              class="f-input"
-              type="text"
-              name="empresa"
-              placeholder="Laboratorio / clínica"
-              required
-            />
-          </div>
-          <div class="f-group f-row f-row-2">
-            <input
-              class="f-input"
-              type="tel"
-              name="whatsapp"
-              placeholder="WhatsApp (obligatorio)"
-              required
-            />
-            <input
-              class="f-input"
-              type="email"
-              name="correo"
-              placeholder="Correo (opcional)"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary submit-btn">
-            Enviar y recibir cotización
-          </button>
+
+          <p class="step-error" hidden></p>
+
           <div class="trust-note">
             <svg
               width="14"
@@ -3228,9 +3827,210 @@
               <path d="M20 6L9 17l-5-5" /></svg
             >Sin compromiso. Te respondemos en minutos en horario laboral.
           </div>
+
+          <div class="step-nav">
+            <button type="button" class="btn btn-ghost-dark step-back" hidden>
+              Atrás
+            </button>
+            <button type="button" class="btn btn-primary step-next">
+              Continuar
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <button type="submit" class="btn btn-primary submit-btn" hidden>
+              Enviar
+            </button>
+          </div>
         </form>
       </div>
     </section>
+
+    <!-- ============ QUOTE MODAL ============ -->
+    <div class="modal-overlay" id="quoteModalOverlay">
+      <div class="modal-card">
+        <button class="modal-close" id="quoteModalClose" aria-label="Cerrar">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <div class="modal-grid">
+          <div class="form-intro modal-intro">
+            <div class="eyebrow eyebrow-dark">Cotización</div>
+            <h2 style="font-size: clamp(20px, 2.6vw, 26px)">
+              No te quedes sin reactivo cuando más lo necesitas
+            </h2>
+          </div>
+
+          <form class="form-card quote-form" id="quoteFormModal" novalidate>
+            <div class="step-head">
+              <div class="step-dots">
+                <span class="step-dot active" data-i="0"></span>
+                <span class="step-dot" data-i="1"></span>
+                <span class="step-dot" data-i="2"></span>
+              </div>
+              <span class="step-label">Paso 1 de 3</span>
+            </div>
+            <div class="step-progress">
+              <div class="step-progress-fill"></div>
+            </div>
+
+            <div class="step-body">
+              <div class="f-step" data-step="0">
+                <div class="f-group">
+                  <span class="f-label">¿Qué tipo de negocio tienes?</span>
+                  <div class="pill-group" data-group="negocio" data-required>
+                    <button type="button" class="pill">
+                      Laboratorio clínico
+                    </button>
+                    <button type="button" class="pill">
+                      Clínica con laboratorio
+                    </button>
+                    <button type="button" class="pill">Consultorio</button>
+                    <button type="button" class="pill">Hospital</button>
+                    <button type="button" class="pill">
+                      Distribuidor / Otro
+                    </button>
+                  </div>
+                </div>
+                <div class="f-group" style="margin-bottom: 0">
+                  <span class="f-label">¿Qué necesitas cotizar?</span>
+                  <div class="pill-group" data-group="producto" data-required>
+                    <button type="button" class="pill">
+                      Inmunofluorescencia (Wondfo/Finecare)
+                    </button>
+                    <button type="button" class="pill">Química clínica</button>
+                    <button type="button" class="pill">Hematología</button>
+                    <button type="button" class="pill">
+                      Consumibles e insumos
+                    </button>
+                    <button type="button" class="pill">No estoy seguro</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="f-step" data-step="1" hidden>
+                <div class="f-group">
+                  <span class="f-label">¿Con qué urgencia lo necesitas?</span>
+                  <div class="pill-group" data-group="urgencia" data-required>
+                    <button type="button" class="pill">Hoy / urgente</button>
+                    <button type="button" class="pill">Esta semana</button>
+                    <button type="button" class="pill">
+                      Resurtido programado
+                    </button>
+                    <button type="button" class="pill">Solo cotizando</button>
+                  </div>
+                </div>
+                <div class="f-group">
+                  <span class="f-label">¿En qué estado te encuentras?</span>
+                  <div class="pill-group" data-group="estado" data-required>
+                    <button type="button" class="pill">Tlaxcala</button>
+                    <button type="button" class="pill">Puebla</button>
+                    <button type="button" class="pill">CDMX / Edomex</button>
+                    <button type="button" class="pill">Otro estado</button>
+                  </div>
+                </div>
+                <div class="f-group" style="margin-bottom: 0">
+                  <span class="f-label">¿Compra puntual o recurrente?</span>
+                  <div
+                    class="pill-group"
+                    data-group="tipo_compra"
+                    data-required
+                  >
+                    <button type="button" class="pill">Compra puntual</button>
+                    <button type="button" class="pill">
+                      Resurtido recurrente
+                    </button>
+                    <button type="button" class="pill">
+                      Cuenta multisitio
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="f-step" data-step="2" hidden>
+                <div class="f-group f-row f-row-2">
+                  <input
+                    class="f-input"
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre"
+                    required
+                  />
+                  <input
+                    class="f-input"
+                    type="text"
+                    name="empresa"
+                    placeholder="Laboratorio / clínica"
+                    required
+                  />
+                </div>
+                <div class="f-group f-row f-row-2" style="margin-bottom: 0">
+                  <input
+                    class="f-input"
+                    type="tel"
+                    name="whatsapp"
+                    placeholder="WhatsApp (obligatorio)"
+                    required
+                  />
+                  <input
+                    class="f-input"
+                    type="email"
+                    name="correo"
+                    placeholder="Correo (opcional)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <p class="step-error" hidden></p>
+
+            <div class="trust-note">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M20 6L9 17l-5-5" /></svg
+              >Sin compromiso. Te respondemos en minutos en horario laboral.
+            </div>
+
+            <div class="step-nav">
+              <button type="button" class="btn btn-ghost-dark step-back" hidden>
+                Atrás
+              </button>
+              <button type="button" class="btn btn-primary step-next">
+                Continuar
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </button>
+              <button type="submit" class="btn btn-primary submit-btn" hidden>
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <!-- ============ FOOTER ============ -->
     <footer>
@@ -3301,10 +4101,12 @@
         }),
       );
 
-      // ===== Hero: panel tilt + count-up (impact animation) =====
+      // ===== Hero: visual tilt (impact animation) =====
       (function () {
         const panelWrap = document.getElementById("heroPanelWrap");
-        const panel = panelWrap ? panelWrap.querySelector(".panel") : null;
+        const panel = panelWrap
+          ? panelWrap.querySelector(".hero-visual-frame")
+          : null;
         if (panelWrap && panel && window.matchMedia("(hover:hover)").matches) {
           panelWrap.addEventListener("mousemove", (e) => {
             const r = panelWrap.getBoundingClientRect();
@@ -3316,21 +4118,6 @@
             panel.style.transform = "";
           });
         }
-        const qtyEls = document.querySelectorAll(
-          ".hero .panel-qty[data-count]",
-        );
-        qtyEls.forEach((el) => {
-          const target = parseInt(el.dataset.count, 10);
-          const dur = 1300;
-          let start = null;
-          function tick(now) {
-            if (start === null) start = now;
-            const p = Math.min(1, Math.max(0, (now - start) / dur));
-            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-            if (p < 1) requestAnimationFrame(tick);
-          }
-          setTimeout(() => requestAnimationFrame(tick), 900);
-        });
       })();
 
       // ===== Scroll reveal =====
@@ -3429,88 +4216,146 @@
         render();
       })();
 
-      // ===== Testimonial carousel (loop infinito) =====
+      // ===== Multi-step form (reusable for inline + modal instances) =====
+      function initQuoteForm(formEl) {
+        const fSteps = Array.from(formEl.querySelectorAll(".f-step"));
+        const stepDots = Array.from(formEl.querySelectorAll(".step-dot"));
+        const stepLabel = formEl.querySelector(".step-label");
+        const stepProgressFill = formEl.querySelector(".step-progress-fill");
+        const stepBack = formEl.querySelector(".step-back");
+        const stepNext = formEl.querySelector(".step-next");
+        const stepSubmit = formEl.querySelector(".submit-btn");
+        const stepError = formEl.querySelector(".step-error");
+        const totalSteps = fSteps.length;
+        let currentStep = 0;
+
+        formEl.querySelectorAll(".pill-group").forEach((group) => {
+          group.querySelectorAll(".pill").forEach((pill) => {
+            pill.addEventListener("click", () => {
+              group
+                .querySelectorAll(".pill")
+                .forEach((p) => p.classList.remove("selected"));
+              pill.classList.add("selected");
+              stepError.hidden = true;
+            });
+          });
+        });
+
+        function renderStep() {
+          fSteps.forEach((step, i) => (step.hidden = i !== currentStep));
+          stepDots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentStep);
+            dot.classList.toggle("done", i < currentStep);
+          });
+          stepLabel.textContent = `Paso ${currentStep + 1} de ${totalSteps}`;
+          stepProgressFill.style.width =
+            ((currentStep + 1) / totalSteps) * 100 + "%";
+          stepBack.hidden = currentStep === 0;
+          const isLast = currentStep === totalSteps - 1;
+          stepNext.hidden = isLast;
+          stepSubmit.hidden = !isLast;
+          stepError.hidden = true;
+        }
+
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        function validateStep(step) {
+          let ok = true;
+          let firstInvalid = null;
+          let message = "Completa esta sección para continuar.";
+          step.querySelectorAll(".pill-group[data-required]").forEach((g) => {
+            if (!g.querySelector(".pill.selected")) {
+              ok = false;
+              firstInvalid = firstInvalid || g;
+            }
+          });
+          step.querySelectorAll(".f-input[required]").forEach((input) => {
+            if (!input.value.trim()) {
+              ok = false;
+              firstInvalid = firstInvalid || input;
+            }
+          });
+          const correo = step.querySelector('.f-input[name="correo"]');
+          if (
+            correo &&
+            correo.value.trim() &&
+            !emailRe.test(correo.value.trim())
+          ) {
+            ok = false;
+            firstInvalid = firstInvalid || correo;
+            message = "Escribe un correo válido.";
+          }
+          if (!ok) {
+            stepError.textContent = message;
+            stepError.hidden = false;
+            if (firstInvalid) firstInvalid.scrollIntoView({ block: "center" });
+          }
+          return ok;
+        }
+
+        stepNext.addEventListener("click", () => {
+          if (!validateStep(fSteps[currentStep])) return;
+          currentStep = Math.min(currentStep + 1, totalSteps - 1);
+          renderStep();
+        });
+        stepBack.addEventListener("click", () => {
+          currentStep = Math.max(currentStep - 1, 0);
+          renderStep();
+        });
+        renderStep();
+
+        // ===== Form submit -> redirige a gracias.html (anti-fuga: WhatsApp solo post-envío) =====
+        // El formulario NUNCA muestra WhatsApp aquí. Al enviarse, viaja a gracias.html
+        // con las respuestas en la URL; esa página arma el link de WhatsApp y lo muestra.
+        // Para conectar esto a un backend real (CRM/Odoo), reemplaza el redirect de abajo
+        // por tu propio fetch()/POST y deja la redirección como paso final tras guardar el lead.
+        formEl.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (!validateStep(fSteps[currentStep])) return;
+
+          const params = new URLSearchParams();
+          formEl.querySelectorAll(".pill-group").forEach((group) => {
+            const selected = group.querySelector(".pill.selected");
+            if (selected)
+              params.set(group.dataset.group, selected.textContent.trim());
+          });
+          formEl.querySelectorAll(".f-input").forEach((input) => {
+            if (input.value.trim())
+              params.set(input.name || input.placeholder, input.value.trim());
+          });
+
+          window.location.href = "gracias.html?" + params.toString();
+        });
+      }
+
+      initQuoteForm(document.getElementById("quoteForm"));
+      initQuoteForm(document.getElementById("quoteFormModal"));
+
+      // ===== Quote modal open/close =====
       (function () {
-        const cards = document.querySelectorAll("#testiStack .testi-card");
-        const dots = document.querySelectorAll("#testiDots button");
-        const len = cards.length;
-        if (!len) return;
-        let testiIndex = 0;
-        function render() {
-          cards.forEach((c, ci) => {
-            c.dataset.pos = (ci - testiIndex + len) % len;
-          });
-          dots.forEach((d, di) =>
-            d.classList.toggle("active", di === testiIndex),
-          );
+        const overlay = document.getElementById("quoteModalOverlay");
+        const closeBtn = document.getElementById("quoteModalClose");
+        function openModal(e) {
+          if (e) e.preventDefault();
+          overlay.classList.add("open");
+          document.body.classList.add("modal-open");
         }
-        function goToTesti(i) {
-          testiIndex = (i + len) % len;
-          render();
-        }
-        dots.forEach((d) =>
-          d.addEventListener("click", () => {
-            goToTesti(parseInt(d.dataset.i));
-            resetTestiTimer();
-          }),
-        );
-        document.getElementById("testiPrev").addEventListener("click", () => {
-          goToTesti(testiIndex - 1);
-          resetTestiTimer();
-        });
-        document.getElementById("testiNext").addEventListener("click", () => {
-          goToTesti(testiIndex + 1);
-          resetTestiTimer();
-        });
-        let testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000);
-        function resetTestiTimer() {
-          clearInterval(testiTimer);
-          testiTimer = setInterval(() => goToTesti(testiIndex + 1), 5000);
+        function closeModal() {
+          overlay.classList.remove("open");
+          document.body.classList.remove("modal-open");
         }
         document
-          .getElementById("testiStack")
-          .addEventListener("mouseenter", () => clearInterval(testiTimer));
-        document
-          .getElementById("testiStack")
-          .addEventListener("mouseleave", resetTestiTimer);
-        render();
+          .querySelectorAll('a[href="#form"]')
+          .forEach((a) => a.addEventListener("click", openModal));
+        closeBtn.addEventListener("click", closeModal);
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.classList.contains("open"))
+            closeModal();
+        });
       })();
-
-      // ===== Pill single-select groups =====
-      document.querySelectorAll(".pill-group").forEach((group) => {
-        group.querySelectorAll(".pill").forEach((pill) => {
-          pill.addEventListener("click", () => {
-            group
-              .querySelectorAll(".pill")
-              .forEach((p) => p.classList.remove("selected"));
-            pill.classList.add("selected");
-          });
-        });
-      });
-
-      // ===== Form submit -> redirige a gracias.html (anti-fuga: WhatsApp solo post-envío) =====
-      // El formulario NUNCA muestra WhatsApp aquí. Al enviarse, viaja a gracias.html
-      // con las respuestas en la URL; esa página arma el link de WhatsApp y lo muestra.
-      // Para conectar esto a un backend real (CRM/Odoo), reemplaza el redirect de abajo
-      // por tu propio fetch()/POST y deja la redirección como paso final tras guardar el lead.
-      const quoteForm = document.getElementById("quoteForm");
-
-      quoteForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const params = new URLSearchParams();
-        quoteForm.querySelectorAll(".pill-group").forEach((group) => {
-          const selected = group.querySelector(".pill.selected");
-          if (selected)
-            params.set(group.dataset.group, selected.textContent.trim());
-        });
-        quoteForm.querySelectorAll(".f-input").forEach((input) => {
-          if (input.value.trim())
-            params.set(input.name || input.placeholder, input.value.trim());
-        });
-
-        window.location.href = "gracias.html?" + params.toString();
-      });
     </script>
   </body>
 </html>

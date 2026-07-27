@@ -49,6 +49,17 @@ body{
   padding:24px;
   -webkit-font-smoothing:antialiased;
 }
+.gracias-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+  max-width:1240px;
+  width:100%;
+  align-items:start;
+}
+@media(min-width:860px){
+  .gracias-grid{grid-template-columns:0.85fr 1.15fr; align-items:stretch;}
+}
 h1{font-family:'Fraunces',serif;font-weight:560;margin:0;}
 p{margin:0;}
 a{text-decoration:none;color:inherit;}
@@ -65,7 +76,6 @@ a{text-decoration:none;color:inherit;}
   border:1px solid var(--line-dark);
   border-radius:24px;
   padding:48px 36px;
-  max-width:460px;
   width:100%;
   text-align:center;
   backdrop-filter:blur(16px);
@@ -116,10 +126,57 @@ h1{font-size:24px;line-height:1.25;margin-bottom:12px;}
 
 /* fallback visible si el link de WhatsApp no pudo formarse (sin JS) */
 .js-only{display:none;}
+
+.calendly-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--line-dark);
+  border-radius:24px;
+  padding:28px;
+  width:100%;
+  text-align:left;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 60px 100px -40px rgba(0,0,0,0.55);
+  animation:card-in .6s var(--ease) .15s backwards;
+  display:flex;
+  flex-direction:column;
+}
+.calendly-card h2{font-family:'Fraunces',serif;font-size:20px;font-weight:560;margin-bottom:6px;}
+.calendly-card > p{font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.55;}
+
+/* ---- calendar mock (visual example, replace with tu iframe real de Calendly) ---- */
+.cal-mock{
+  background:#fff;
+  color:var(--near-black);
+  border-radius:16px;
+  padding:22px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+.cal-mock-head{display:flex;align-items:center;justify-content:space-between;}
+.cal-mock-head strong{font-family:'Fraunces',serif;font-size:17px;}
+.cal-mock-nav{display:flex;gap:8px;}
+.cal-mock-nav button{width:28px;height:28px;border-radius:50%;border:1px solid rgba(3,44,96,0.15);background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;}
+.cal-mock-nav svg{width:14px;height:14px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;}
+.cal-grid .dow{font-size:12px;color:var(--slate-2);font-family:'IBM Plex Mono',monospace;padding-bottom:4px;}
+.cal-grid .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px;color:var(--near-black);}
+.cal-grid .day.muted{color:rgba(32,32,30,0.25);}
+.cal-grid .day.avail{background:rgba(44,94,164,0.1);color:var(--blue);font-weight:600;cursor:pointer;}
+.cal-grid .day.avail:hover{background:rgba(44,94,164,0.18);}
+.cal-grid .day.selected{background:var(--blue);color:#fff;font-weight:600;}
+.cal-slots{display:flex;flex-direction:column;gap:8px;border-top:1px solid rgba(3,44,96,0.1);padding-top:16px;}
+.cal-slots-label{font-size:13px;color:var(--slate);font-weight:600;margin-bottom:2px;}
+.cal-slot{padding:10px 14px;border-radius:10px;border:1px solid rgba(44,94,164,0.3);color:var(--blue);font-size:14px;font-weight:600;text-align:center;transition:background .2s,color .2s;}
+.cal-slot:hover{background:var(--blue);color:#fff;}
+.cal-disclaimer{font-size:13px;color:rgba(255,255,255,0.4);margin-top:16px;line-height:1.5;}
 </style>
 </head>
 <body>
 
+<div class="gracias-grid">
 <div class="card">
 
   <!-- ===== LOGO (mismo sprite que index.html; si cambias el logo, actualiza en ambos archivos) ===== -->
@@ -198,6 +255,59 @@ h1{font-size:24px;line-height:1.25;margin-bottom:12px;}
 
   <a href="index.html" class="back-link">Volver al inicio</a>
 </div>
+
+<div class="calendly-card">
+  <h2>¿Prefieres agendar una llamada?</h2>
+  <p>Elige el horario que te acomode y platicamos directamente sobre tu cotización.</p>
+  <div class="cal-mock">
+    <div class="cal-mock-head">
+      <strong>Agosto 2026</strong>
+      <div class="cal-mock-nav">
+        <button aria-label="Mes anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button aria-label="Mes siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="cal-grid" id="calGrid">
+      <div class="dow">L</div><div class="dow">M</div><div class="dow">M</div><div class="dow">J</div><div class="dow">V</div><div class="dow">S</div><div class="dow">D</div>
+    </div>
+    <div class="cal-slots">
+      <span class="cal-slots-label">Horarios disponibles</span>
+      <div class="cal-slot">10:00 am</div>
+      <div class="cal-slot">12:30 pm</div>
+      <div class="cal-slot">4:00 pm</div>
+    </div>
+  </div>
+  <p class="cal-disclaimer">Calendario de ejemplo — conecta aquí tu enlace real de Calendly para agendar citas.</p>
+</div>
+</div>
+
+<script>
+(function(){
+  const grid = document.getElementById('calGrid');
+  if (!grid) return;
+  const leadingBlank = 5; // agosto 2026 inicia en sábado
+  const totalDays = 31;
+  const available = new Set([3,4,5,10,11,12,17,18,19,24,25,26]);
+  let selected = 12;
+  for (let i = 0; i < leadingBlank; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'day muted';
+    grid.appendChild(cell);
+  }
+  for (let d = 1; d <= totalDays; d++) {
+    const cell = document.createElement('div');
+    cell.textContent = d;
+    cell.className = 'day' + (available.has(d) ? ' avail' : ' muted') + (d === selected ? ' selected' : '');
+    if (available.has(d)) {
+      cell.addEventListener('click', () => {
+        grid.querySelectorAll('.day.selected').forEach(c => c.classList.remove('selected'));
+        cell.classList.add('selected');
+      });
+    }
+    grid.appendChild(cell);
+  }
+})();
+</script>
 
 <script>
 /* =====================================================================
