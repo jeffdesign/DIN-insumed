@@ -3740,6 +3740,69 @@
           </div>
 
           <div class="f-step" data-step="0">
+            <div class="f-group f-row f-row-2">
+              <input
+                class="f-input"
+                type="text"
+                name="nombre"
+                placeholder="Nombre"
+                required
+              />
+              <input
+                class="f-input"
+                type="text"
+                name="empresa"
+                placeholder="Laboratorio / clínica"
+                required
+              />
+            </div>
+            <div class="f-group f-row f-row-2" style="margin-bottom: 0">
+              <input
+                class="f-input"
+                type="tel"
+                name="whatsapp"
+                placeholder="WhatsApp (obligatorio)"
+                required
+              />
+              <input
+                class="f-input"
+                type="email"
+                name="correo"
+                placeholder="Correo (opcional)"
+              />
+            </div>
+          </div>
+
+          <div class="f-step" data-step="1" hidden>
+            <div class="f-group">
+              <span class="f-label">¿Con qué urgencia lo necesitas?</span>
+              <div class="pill-group" data-group="urgencia" data-required>
+                <button type="button" class="pill">Hoy / urgente</button>
+                <button type="button" class="pill">Esta semana</button>
+                <button type="button" class="pill">Resurtido programado</button>
+                <button type="button" class="pill">Solo cotizando</button>
+              </div>
+            </div>
+            <div class="f-group">
+              <span class="f-label">¿En qué estado te encuentras?</span>
+              <div class="pill-group" data-group="estado" data-required>
+                <button type="button" class="pill">Tlaxcala</button>
+                <button type="button" class="pill">Puebla</button>
+                <button type="button" class="pill">CDMX / Edomex</button>
+                <button type="button" class="pill">Otro estado</button>
+              </div>
+            </div>
+            <div class="f-group" style="margin-bottom: 0">
+              <span class="f-label">¿Compra puntual o recurrente?</span>
+              <div class="pill-group" data-group="tipo_compra" data-required>
+                <button type="button" class="pill">Compra puntual</button>
+                <button type="button" class="pill">Resurtido recurrente</button>
+                <button type="button" class="pill">Cuenta multisitio</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="f-step" data-step="2" hidden>
             <div class="f-group">
               <span class="f-label">¿Qué tipo de negocio tienes?</span>
               <div class="pill-group" data-group="negocio" data-required>
@@ -3782,69 +3845,6 @@
                 <button type="button" class="pill">$30,000+</button>
                 <button type="button" class="pill">Aún no lo sé</button>
               </div>
-            </div>
-          </div>
-
-          <div class="f-step" data-step="1" hidden>
-            <div class="f-group">
-              <span class="f-label">¿Con qué urgencia lo necesitas?</span>
-              <div class="pill-group" data-group="urgencia" data-required>
-                <button type="button" class="pill">Hoy / urgente</button>
-                <button type="button" class="pill">Esta semana</button>
-                <button type="button" class="pill">Resurtido programado</button>
-                <button type="button" class="pill">Solo cotizando</button>
-              </div>
-            </div>
-            <div class="f-group">
-              <span class="f-label">¿En qué estado te encuentras?</span>
-              <div class="pill-group" data-group="estado" data-required>
-                <button type="button" class="pill">Tlaxcala</button>
-                <button type="button" class="pill">Puebla</button>
-                <button type="button" class="pill">CDMX / Edomex</button>
-                <button type="button" class="pill">Otro estado</button>
-              </div>
-            </div>
-            <div class="f-group" style="margin-bottom: 0">
-              <span class="f-label">¿Compra puntual o recurrente?</span>
-              <div class="pill-group" data-group="tipo_compra" data-required>
-                <button type="button" class="pill">Compra puntual</button>
-                <button type="button" class="pill">Resurtido recurrente</button>
-                <button type="button" class="pill">Cuenta multisitio</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="f-step" data-step="2" hidden>
-            <div class="f-group f-row f-row-2">
-              <input
-                class="f-input"
-                type="text"
-                name="nombre"
-                placeholder="Nombre"
-                required
-              />
-              <input
-                class="f-input"
-                type="text"
-                name="empresa"
-                placeholder="Laboratorio / clínica"
-                required
-              />
-            </div>
-            <div class="f-group f-row f-row-2" style="margin-bottom: 0">
-              <input
-                class="f-input"
-                type="tel"
-                name="whatsapp"
-                placeholder="WhatsApp (obligatorio)"
-                required
-              />
-              <input
-                class="f-input"
-                type="email"
-                name="correo"
-                placeholder="Correo (opcional)"
-              />
             </div>
           </div>
 
@@ -3920,116 +3920,119 @@
               <div class="step-progress-fill"></div>
             </div>
 
-            <div class="step-body">
-              <div class="f-step" data-step="0">
-                <div class="f-group">
-                  <span class="f-label">¿Qué tipo de negocio tienes?</span>
-                  <div class="pill-group" data-group="negocio" data-required>
-                    <button type="button" class="pill">
-                      Laboratorio clínico
-                    </button>
-                    <button type="button" class="pill">
-                      Clínica con laboratorio
-                    </button>
-                    <button type="button" class="pill">Consultorio</button>
-                    <button type="button" class="pill">Hospital</button>
-                    <button type="button" class="pill">
-                      Distribuidor / Otro
-                    </button>
-                  </div>
-                </div>
-                <div class="f-group" style="margin-bottom: 0">
-                  <span class="f-label">¿Qué necesitas cotizar?</span>
-                  <div class="pill-group" data-group="producto" data-required>
-                    <button type="button" class="pill">
-                      Inmunofluorescencia (Wondfo/Finecare)
-                    </button>
-                    <button type="button" class="pill">Química clínica</button>
-                    <button type="button" class="pill">Hematología</button>
-                    <button type="button" class="pill">
-                      Consumibles e insumos
-                    </button>
-                    <button type="button" class="pill">HYCEL</button>
-                    <button type="button" class="pill">
-                      Pruebas rápidas y equipos/analizadores
-                    </button>
-                    <button type="button" class="pill">
-                      No estoy seguro/a
-                    </button>
-                  </div>
+            <div class="f-step" data-step="0">
+              <div class="f-group f-row f-row-2">
+                <input
+                  class="f-input"
+                  type="text"
+                  name="nombre"
+                  placeholder="Nombre"
+                  required
+                />
+                <input
+                  class="f-input"
+                  type="text"
+                  name="empresa"
+                  placeholder="Laboratorio / clínica"
+                  required
+                />
+              </div>
+              <div class="f-group f-row f-row-2" style="margin-bottom: 0">
+                <input
+                  class="f-input"
+                  type="tel"
+                  name="whatsapp"
+                  placeholder="WhatsApp (obligatorio)"
+                  required
+                />
+                <input
+                  class="f-input"
+                  type="email"
+                  name="correo"
+                  placeholder="Correo (opcional)"
+                />
+              </div>
+            </div>
+
+            <div class="f-step" data-step="1" hidden>
+              <div class="f-group">
+                <span class="f-label">¿Con qué urgencia lo necesitas?</span>
+                <div class="pill-group" data-group="urgencia" data-required>
+                  <button type="button" class="pill">Hoy / urgente</button>
+                  <button type="button" class="pill">Esta semana</button>
+                  <button type="button" class="pill">
+                    Resurtido programado
+                  </button>
+                  <button type="button" class="pill">Solo cotizando</button>
                 </div>
               </div>
-
-              <div class="f-step" data-step="1" hidden>
-                <div class="f-group">
-                  <span class="f-label">¿Con qué urgencia lo necesitas?</span>
-                  <div class="pill-group" data-group="urgencia" data-required>
-                    <button type="button" class="pill">Hoy / urgente</button>
-                    <button type="button" class="pill">Esta semana</button>
-                    <button type="button" class="pill">
-                      Resurtido programado
-                    </button>
-                    <button type="button" class="pill">Solo cotizando</button>
-                  </div>
-                </div>
-                <div class="f-group">
-                  <span class="f-label">¿En qué estado te encuentras?</span>
-                  <div class="pill-group" data-group="estado" data-required>
-                    <button type="button" class="pill">Tlaxcala</button>
-                    <button type="button" class="pill">Puebla</button>
-                    <button type="button" class="pill">CDMX / Edomex</button>
-                    <button type="button" class="pill">Otro estado</button>
-                  </div>
-                </div>
-                <div class="f-group" style="margin-bottom: 0">
-                  <span class="f-label">¿Compra puntual o recurrente?</span>
-                  <div
-                    class="pill-group"
-                    data-group="tipo_compra"
-                    data-required
-                  >
-                    <button type="button" class="pill">Compra puntual</button>
-                    <button type="button" class="pill">
-                      Resurtido recurrente
-                    </button>
-                    <button type="button" class="pill">
-                      Cuenta multisitio
-                    </button>
-                  </div>
+              <div class="f-group">
+                <span class="f-label">¿En qué estado te encuentras?</span>
+                <div class="pill-group" data-group="estado" data-required>
+                  <button type="button" class="pill">Tlaxcala</button>
+                  <button type="button" class="pill">Puebla</button>
+                  <button type="button" class="pill">CDMX / Edomex</button>
+                  <button type="button" class="pill">Otro estado</button>
                 </div>
               </div>
-
-              <div class="f-step" data-step="2" hidden>
-                <div class="f-group f-row f-row-2">
-                  <input
-                    class="f-input"
-                    type="text"
-                    name="nombre"
-                    placeholder="Nombre"
-                    required
-                  />
-                  <input
-                    class="f-input"
-                    type="text"
-                    name="empresa"
-                    placeholder="Laboratorio / clínica"
-                    required
-                  />
+              <div class="f-group" style="margin-bottom: 0">
+                <span class="f-label">¿Compra puntual o recurrente?</span>
+                <div class="pill-group" data-group="tipo_compra" data-required>
+                  <button type="button" class="pill">Compra puntual</button>
+                  <button type="button" class="pill">
+                    Resurtido recurrente
+                  </button>
+                  <button type="button" class="pill">Cuenta multisitio</button>
                 </div>
-                <div class="f-group f-row f-row-2" style="margin-bottom: 0">
-                  <input
-                    class="f-input"
-                    type="tel"
-                    name="whatsapp"
-                    placeholder="WhatsApp (obligatorio)"
-                    required
-                  />
-                  <input
-                    class="f-input"
-                    type="email"
-                    name="correo"
-                    placeholder="Correo (opcional)"
-                  />
+              </div>
+            </div>
+
+            <div class="f-step" data-step="2" hidden>
+              <div class="f-group">
+                <span class="f-label">¿Qué tipo de negocio tienes?</span>
+                <div class="pill-group" data-group="negocio" data-required>
+                  <button type="button" class="pill">
+                    Laboratorio clínico
+                  </button>
+                  <button type="button" class="pill">
+                    Clínica con laboratorio
+                  </button>
+                  <button type="button" class="pill">Consultorio</button>
+                  <button type="button" class="pill">Hospital</button>
+                  <button type="button" class="pill">
+                    Distribuidor / Otro
+                  </button>
+                </div>
+              </div>
+              <div class="f-group">
+                <span class="f-label">¿Qué necesitas cotizar?</span>
+                <div class="pill-group" data-group="producto" data-required>
+                  <button type="button" class="pill">
+                    Inmunofluorescencia (Wondfo/Finecare)
+                  </button>
+                  <button type="button" class="pill">Química clínica</button>
+                  <button type="button" class="pill">Hematología</button>
+                  <button type="button" class="pill">
+                    Consumibles e insumos
+                  </button>
+                  <button type="button" class="pill">HYCEL</button>
+                  <button type="button" class="pill">
+                    Pruebas rápidas y equipos/analizadores
+                  </button>
+                  <button type="button" class="pill">No estoy seguro/a</button>
+                </div>
+              </div>
+              <div class="f-group" style="margin-bottom: 0">
+                <span class="f-label"
+                  >¿Cuál es el monto aproximado de tu compra?</span
+                >
+                <div class="pill-group" data-group="monto" data-required>
+                  <button type="button" class="pill">Menos de $3,000</button>
+                  <button type="button" class="pill">$3,000–$7,999</button>
+                  <button type="button" class="pill">$8,000–$14,999</button>
+                  <button type="button" class="pill">$15,000–$29,999</button>
+                  <button type="button" class="pill">$30,000+</button>
+                  <button type="button" class="pill">Aún no lo sé</button>
                 </div>
               </div>
             </div>
