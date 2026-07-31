@@ -489,6 +489,81 @@
         max-width: 44ch;
         line-height: 1.5;
       }
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0 0 6px;
+      }
+      .hero-tag {
+        padding: 6px 14px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--line-dark);
+        color: var(--slate-2);
+      }
+      .hero-visual-floating-tags {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        pointer-events: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        padding: 0 16px;
+      }
+      .hero-visual-floating-tags--top {
+        top: 120px;
+      }
+      .hero-visual-floating-tags--bottom {
+        bottom: 100px;
+      }
+      .hero-tag--float {
+        background: rgba(16, 28, 48, 0.72);
+        border: 1px solid var(--line-dark);
+        color: #fff;
+        font-size: 12px;
+        padding: 5px 11px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.6);
+        animation: float 6s ease-in-out infinite;
+      }
+      .hero-tag--1 {
+        animation-delay: 0.2s;
+      }
+      .hero-tag--2 {
+        animation-delay: 1.1s;
+      }
+      .hero-tag--3 {
+        animation-delay: 0.6s;
+      }
+      .hero-tag--4 {
+        animation-delay: 1.6s;
+      }
+      .hero-tag--5 {
+        animation-delay: 0.9s;
+      }
+      .hero-tag--6 {
+        animation-delay: 1.9s;
+      }
+      @media (max-width: 640px) {
+        .hero-tag--3,
+        .hero-tag--6 {
+          display: none;
+        }
+        .hero-visual-floating-tags--top {
+          top: 84px;
+        }
+        .hero-visual-floating-tags--bottom {
+          bottom: 130px;
+        }
+      }
       .hero-microproof svg {
         flex: none;
         width: 16px;
@@ -692,12 +767,24 @@
         width: 100%;
         height: 100%;
       }
+      .hero-visual-frame > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 30px;
+        box-sizing: border-box;
+        background: radial-gradient(
+          circle at 50% 40%,
+          var(--navy-soft),
+          var(--near-black) 85%
+        );
+      }
       .hero-visual-accent {
         position: absolute;
         left: -34px;
         bottom: -34px;
-        width: 42%;
-        aspect-ratio: 1 / 1;
+        width: 46%;
+        aspect-ratio: 4 / 3;
         border-radius: 18px;
         overflow: hidden;
         border: 4px solid var(--navy);
@@ -714,6 +801,31 @@
         .hero-visual-accent {
           display: none;
         }
+        .hero-visual-brand-chip {
+          display: none;
+        }
+      }
+      .hero-visual-brand-chip {
+        position: absolute;
+        right: -20px;
+        top: -20px;
+        z-index: 5;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.55);
+        animation: float 6s ease-in-out infinite;
+        animation-delay: 0.9s;
+      }
+      .hero-visual-brand-chip img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
       }
       .hero-float-badge {
         position: absolute;
@@ -744,11 +856,22 @@
         color: var(--slate-2);
       }
       .hero-float-badge--bottom {
-        left: auto;
-        right: 20px;
+        left: 50%;
+        right: auto;
         bottom: 20px;
         top: auto;
         width: fit-content;
+        transform: translateX(-50%);
+        animation: floatCenterBadge 6s ease-in-out infinite;
+      }
+      @keyframes floatCenterBadge {
+        0%,
+        100% {
+          transform: translate(-50%, 0);
+        }
+        50% {
+          transform: translate(-50%, -10px);
+        }
       }
       .hero-ctas .btn-primary {
         position: relative;
@@ -1756,7 +1879,7 @@
         display: flex;
         gap: 22px;
         width: max-content;
-        animation: testiScroll 34s linear infinite;
+        animation: testiScroll 51s linear infinite;
       }
       .testi-marquee:hover .testi-track {
         animation-play-state: paused;
@@ -1766,7 +1889,7 @@
           transform: translateX(0);
         }
         to {
-          transform: translateX(-50%);
+          transform: translateX(-33.3334%);
         }
       }
       .testi-mcard {
@@ -1823,17 +1946,113 @@
         gap: 14px;
         margin-top: 24px;
       }
-      .testi-video {
-        display: flex;
-        width: 100%;
+      .testi-video-marquee {
         margin-top: 30px;
-        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent,
+          black 6%,
+          black 94%,
+          transparent
+        );
+        mask-image: linear-gradient(
+          90deg,
+          transparent,
+          black 6%,
+          black 94%,
+          transparent
+        );
       }
-      .testi-video video {
-        border-radius: 40px;
-        width: 400px;
-        height: 500px;
+      .testi-video-track {
+        display: flex;
+        gap: 22px;
+        width: max-content;
+        animation: testiScroll 57s linear infinite;
+      }
+      .testi-video-marquee:hover .testi-video-track {
+        animation-play-state: paused;
+      }
+      .testi-vcard {
+        flex: none;
+        position: relative;
+        width: 240px;
+        aspect-ratio: 9 / 14;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--line-dark);
+        cursor: pointer;
+        background: var(--near-black-soft);
+      }
+      .testi-vcard video {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
+        display: block;
+      }
+      .testi-vcard::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          185deg,
+          rgba(3, 12, 26, 0) 45%,
+          rgba(3, 12, 26, 0.85)
+        );
+        pointer-events: none;
+      }
+      .testi-vcard-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        transition:
+          transform 0.3s var(--ease),
+          background 0.3s var(--ease);
+      }
+      .testi-vcard:hover .testi-vcard-play {
+        transform: translate(-50%, -50%) scale(1.1);
+        background: var(--blue);
+      }
+      .testi-vcard-play svg {
+        width: 20px;
+        height: 20px;
+        color: #fff;
+        margin-left: 3px;
+      }
+      .testi-vcard-cap {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 14px;
+        z-index: 2;
+        color: #fff;
+      }
+      .testi-vcard-cap strong {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .testi-vcard-cap span {
+        font-size: 12px;
+        color: var(--slate-2);
+      }
+      @media (max-width: 640px) {
+        .testi-vcard {
+          width: 190px;
+        }
       }
       /* ============ VALUE TICKER ============ */
       .value-ticker {
@@ -2005,6 +2224,14 @@
         grid-template-columns: 1fr;
         gap: 20px;
       }
+      .f-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .f-field .f-label {
+        margin-bottom: 0;
+      }
       .f-input {
         width: 100%;
         padding: 13px 16px;
@@ -2142,13 +2369,13 @@
       .modal-card {
         position: relative;
         width: 100%;
-        max-width: 640px;
+        max-width: 760px;
         max-height: 94vh;
         overflow-y: auto;
         background: var(--navy);
         border: 1px solid rgba(255, 255, 255, 0.16);
         border-radius: 20px;
-        padding: 22px;
+        padding: 40px;
         color: #fff;
         transform: translateY(24px) scale(0.97);
         transition:
@@ -2164,25 +2391,25 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 20px;
       }
       .modal-intro {
         text-align: center;
-        max-width: 420px;
+        max-width: 520px;
       }
       .modal-intro .eyebrow {
-        margin-bottom: 6px;
-        padding: 4px 10px;
+        margin-bottom: 8px;
+        padding: 5px 12px;
         font-size: 13px;
       }
       .modal-intro h2 {
-        line-height: 1.15;
-        font-size: clamp(17px, 2.2vw, 20px) !important;
+        line-height: 1.2;
+        font-size: clamp(21px, 2.6vw, 26px) !important;
       }
       .modal-card .form-card {
         width: 100%;
         background: rgba(255, 255, 255, 0.06);
-        padding: 16px 20px;
+        padding: 26px 30px;
       }
       .step-body {
         min-height: 130px;
@@ -2191,39 +2418,42 @@
         justify-content: center;
       }
       .modal-card .step-head {
-        margin-bottom: 8px;
+        margin-bottom: 14px;
       }
       .modal-card .f-group {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+      }
+      .modal-card .f-row {
+        gap: 18px;
       }
       .modal-card .f-label {
-        margin-bottom: 5px;
-        font-size: 13px;
+        margin-bottom: 6px;
+        font-size: 15px;
       }
       .modal-card .pill-group {
-        gap: 6px;
+        gap: 10px;
       }
       .modal-card .pill {
-        padding: 6px 12px;
-        font-size: 13px;
-      }
-      .modal-card .f-input {
-        padding: 9px 13px;
-        font-size: 13px;
-      }
-      .modal-card .step-progress {
-        margin-bottom: 10px;
-      }
-      .modal-card .step-nav {
-        margin-top: 9px;
-      }
-      .modal-card .step-nav .btn {
-        padding: 10px 18px;
+        padding: 9px 16px;
         font-size: 14px;
       }
+      .modal-card .f-input {
+        padding: 13px 16px;
+        font-size: 15px;
+      }
+      .modal-card .step-progress {
+        margin-bottom: 20px;
+      }
+      .modal-card .step-nav {
+        margin-top: 18px;
+      }
+      .modal-card .step-nav .btn {
+        padding: 13px 22px;
+        font-size: 16px;
+      }
       .modal-card .trust-note {
-        margin-top: 6px;
-        font-size: 12px;
+        margin-top: 14px;
+        font-size: 13px;
       }
       .modal-close {
         position: absolute;
@@ -2249,6 +2479,23 @@
       .modal-close svg {
         width: 16px;
         height: 16px;
+      }
+      .modal-card--video {
+        max-width: 420px;
+        padding: 0;
+        background: #000;
+        border-radius: 22px;
+        overflow: hidden;
+      }
+      .modal-card--video video {
+        display: block;
+        width: 100%;
+        max-height: 82vh;
+      }
+      .modal-card--video .modal-close {
+        top: 14px;
+        right: 14px;
+        z-index: 2;
       }
       body.modal-open {
         overflow: hidden;
@@ -2848,10 +3095,10 @@
             <span class="hw" style="animation-delay: 0.68s">día</span>
           </h1>
           <p class="hero-sub hero-anim" style="animation-delay: 0.55s">
-            Insumed abastece a laboratorios y clínicas en todo México con
-            reactivos, insumos y equipo de diagnóstico. Confirmamos
-            disponibilidad al momento y embarcamos el mismo día en líneas
-            aplicables.
+            Insumed distribuye pruebas rápidas Wondfo/Finecare, reactivos HYCEL,
+            consumibles y analizadores para laboratorios y clínicas en todo
+            México. Confirmamos disponibilidad al momento y embarcamos el mismo
+            día en líneas aplicables.
           </p>
           <div class="hero-ctas hero-anim" style="animation-delay: 0.68s">
             <a href="#form" class="btn btn-primary"
@@ -2912,7 +3159,10 @@
         >
           <div class="hero-visual-inner">
             <div class="hero-visual-frame">
-              <img src="./assets/img-hero.png" alt="" />
+              <img
+                src="./assets/img-hero-products.png"
+                alt="Reactivos, prueba Finecare y consumibles Protec Insumed"
+              />
               <div class="hero-float-badge">
                 <span class="dot dot-live"></span>
                 <div>
@@ -2926,9 +3176,33 @@
                   <strong>Stock disponible ahora</strong>
                 </div>
               </div>
+              <div
+                class="hero-visual-floating-tags hero-visual-floating-tags--top"
+                aria-hidden="true"
+              >
+                <span class="hero-tag hero-tag--float hero-tag--1">Wondfo</span>
+                <span class="hero-tag hero-tag--float hero-tag--2">HYCEL</span>
+                <span class="hero-tag hero-tag--float hero-tag--3"
+                  >Pruebas rápidas</span
+                >
+              </div>
+              <div
+                class="hero-visual-floating-tags hero-visual-floating-tags--bottom"
+                aria-hidden="true"
+              >
+                <span class="hero-tag hero-tag--float hero-tag--4"
+                  >Reactivos</span
+                >
+                <span class="hero-tag hero-tag--float hero-tag--5"
+                  >Consumibles</span
+                >
+                <span class="hero-tag hero-tag--float hero-tag--6"
+                  >Analizadores</span
+                >
+              </div>
             </div>
-            <div class="hero-visual-accent">
-              <img src="./assets/hero-img-2.jpg" alt="" />
+            <div class="hero-visual-brand-chip">
+              <img src="./assets/Logo-1.jpg" alt="Wondfo" />
             </div>
           </div>
         </div>
@@ -3622,10 +3896,288 @@
               </div>
             </div>
           </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Antes esperaba horas para saber si había stock. Ahora me
+              confirman al momento y el reactivo llega el mismo día; mi
+              laboratorio no se detiene."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: var(--blue); color: #fff">
+                LM
+              </div>
+              <div>
+                <strong>Laura M.</strong
+                ><span>Administradora de laboratorio · Puebla</span>
+              </div>
+            </div>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Lo que más valoro es la honestidad: si no lo tienen, me lo dicen
+              de una vez y no pierdo el día esperando."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: var(--navy); color: #fff">
+                RT
+              </div>
+              <div>
+                <strong>Dr. Ricardo T.</strong
+                ><span>Responsable de laboratorio clínico · Tlaxcala</span>
+              </div>
+            </div>
+          </div>
+          <div class="testi-mcard">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                /></svg
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                />
+              </svg>
+            </div>
+            <p class="testi-quote">
+              "Manejo tres sedes y consolidar todo con Insumed me quitó el dolor
+              de cabeza del resurtido; un solo contacto y respuesta rápida."
+            </p>
+            <div class="testi-foot">
+              <div class="avatar" style="background: #2c4a6b; color: #fff">
+                MG
+              </div>
+              <div>
+                <strong>Mariana G.</strong
+                ><span>Coordinadora de compras · Clínica multisitio, CDMX</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="testi-video reveal">
-        <video src="./assets/testimonial-1.mp4" controls></video>
+      <div class="testi-video-marquee reveal">
+        <div class="testi-video-track" id="testiVideoTrack">
+          <div class="testi-vcard" data-video="./assets/testimonial-1.mp4">
+            <video
+              src="./assets/testimonial-1.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Laura M.</strong>
+              <span>Administradora de laboratorio · Puebla</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/video-nosotros.mp4">
+            <video
+              src="./assets/video-nosotros.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Conoce Insumed</strong>
+              <span>Detrás del equipo</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/testimonial-1.mp4">
+            <video
+              src="./assets/testimonial-1.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Dr. Ricardo T.</strong>
+              <span>Laboratorio clínico · Tlaxcala</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/testimonial-1.mp4">
+            <video
+              src="./assets/testimonial-1.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Laura M.</strong>
+              <span>Administradora de laboratorio · Puebla</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/video-nosotros.mp4">
+            <video
+              src="./assets/video-nosotros.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Conoce Insumed</strong>
+              <span>Detrás del equipo</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/testimonial-1.mp4">
+            <video
+              src="./assets/testimonial-1.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Dr. Ricardo T.</strong>
+              <span>Laboratorio clínico · Tlaxcala</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/testimonial-1.mp4">
+            <video
+              src="./assets/testimonial-1.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Laura M.</strong>
+              <span>Administradora de laboratorio · Puebla</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/video-nosotros.mp4">
+            <video
+              src="./assets/video-nosotros.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Conoce Insumed</strong>
+              <span>Detrás del equipo</span>
+            </div>
+          </div>
+          <div class="testi-vcard" data-video="./assets/testimonial-1.mp4">
+            <video
+              src="./assets/testimonial-1.mp4"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+            <div class="testi-vcard-play">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+            <div class="testi-vcard-cap">
+              <strong>Dr. Ricardo T.</strong>
+              <span>Laboratorio clínico · Tlaxcala</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -3741,35 +4293,51 @@
 
           <div class="f-step" data-step="0">
             <div class="f-group f-row f-row-2">
-              <input
-                class="f-input"
-                type="text"
-                name="nombre"
-                placeholder="Nombre"
-                required
-              />
-              <input
-                class="f-input"
-                type="text"
-                name="empresa"
-                placeholder="Laboratorio / clínica"
-                required
-              />
+              <div class="f-field">
+                <label class="f-label" for="sec-nombre">Nombre</label>
+                <input
+                  class="f-input"
+                  id="sec-nombre"
+                  type="text"
+                  name="nombre"
+                  placeholder="Nombre"
+                  required
+                />
+              </div>
+              <div class="f-field">
+                <label class="f-label" for="sec-empresa">Laboratorio</label>
+                <input
+                  class="f-input"
+                  id="sec-empresa"
+                  type="text"
+                  name="empresa"
+                  placeholder="Laboratorio / clínica"
+                  required
+                />
+              </div>
             </div>
             <div class="f-group f-row f-row-2" style="margin-bottom: 0">
-              <input
-                class="f-input"
-                type="tel"
-                name="whatsapp"
-                placeholder="WhatsApp (obligatorio)"
-                required
-              />
-              <input
-                class="f-input"
-                type="email"
-                name="correo"
-                placeholder="Correo (opcional)"
-              />
+              <div class="f-field">
+                <label class="f-label" for="sec-whatsapp">WhatsApp</label>
+                <input
+                  class="f-input"
+                  id="sec-whatsapp"
+                  type="tel"
+                  name="whatsapp"
+                  placeholder="WhatsApp (obligatorio)"
+                  required
+                />
+              </div>
+              <div class="f-field">
+                <label class="f-label" for="sec-correo">Correo</label>
+                <input
+                  class="f-input"
+                  id="sec-correo"
+                  type="email"
+                  name="correo"
+                  placeholder="Correo (opcional)"
+                />
+              </div>
             </div>
           </div>
 
@@ -3838,8 +4406,8 @@
                 >¿Cuál es el monto aproximado de tu compra?</span
               >
               <div class="pill-group" data-group="monto" data-required>
-                <button type="button" class="pill">Menos de $3,000</button>
-                <button type="button" class="pill">$3,000–$7,999</button>
+                <button type="button" class="pill">Menos de $500</button>
+                <button type="button" class="pill">$600–$7,999</button>
                 <button type="button" class="pill">$8,000–$14,999</button>
                 <button type="button" class="pill">$15,000–$29,999</button>
                 <button type="button" class="pill">$30,000+</button>
@@ -3886,6 +4454,23 @@
       </div>
     </section>
 
+    <!-- ============ VIDEO MODAL ============ -->
+    <div class="modal-overlay" id="videoModalOverlay">
+      <div class="modal-card modal-card--video">
+        <button class="modal-close" id="videoModalClose" aria-label="Cerrar">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+        <video id="videoModalPlayer" controls playsinline></video>
+      </div>
+    </div>
+
     <!-- ============ QUOTE MODAL ============ -->
     <div class="modal-overlay" id="quoteModalOverlay">
       <div class="modal-card">
@@ -3922,35 +4507,51 @@
 
             <div class="f-step" data-step="0">
               <div class="f-group f-row f-row-2">
-                <input
-                  class="f-input"
-                  type="text"
-                  name="nombre"
-                  placeholder="Nombre"
-                  required
-                />
-                <input
-                  class="f-input"
-                  type="text"
-                  name="empresa"
-                  placeholder="Laboratorio / clínica"
-                  required
-                />
+                <div class="f-field">
+                  <label class="f-label" for="modal-nombre">Nombre</label>
+                  <input
+                    class="f-input"
+                    id="modal-nombre"
+                    type="text"
+                    name="nombre"
+                    placeholder="Nombre"
+                    required
+                  />
+                </div>
+                <div class="f-field">
+                  <label class="f-label" for="modal-empresa">Laboratorio</label>
+                  <input
+                    class="f-input"
+                    id="modal-empresa"
+                    type="text"
+                    name="empresa"
+                    placeholder="Laboratorio / clínica"
+                    required
+                  />
+                </div>
               </div>
               <div class="f-group f-row f-row-2" style="margin-bottom: 0">
-                <input
-                  class="f-input"
-                  type="tel"
-                  name="whatsapp"
-                  placeholder="WhatsApp (obligatorio)"
-                  required
-                />
-                <input
-                  class="f-input"
-                  type="email"
-                  name="correo"
-                  placeholder="Correo (opcional)"
-                />
+                <div class="f-field">
+                  <label class="f-label" for="modal-whatsapp">WhatsApp</label>
+                  <input
+                    class="f-input"
+                    id="modal-whatsapp"
+                    type="tel"
+                    name="whatsapp"
+                    placeholder="WhatsApp (obligatorio)"
+                    required
+                  />
+                </div>
+                <div class="f-field">
+                  <label class="f-label" for="modal-correo">Correo</label>
+                  <input
+                    class="f-input"
+                    id="modal-correo"
+                    type="email"
+                    name="correo"
+                    placeholder="Correo (opcional)"
+                  />
+                </div>
               </div>
             </div>
 
@@ -4027,8 +4628,8 @@
                   >¿Cuál es el monto aproximado de tu compra?</span
                 >
                 <div class="pill-group" data-group="monto" data-required>
-                  <button type="button" class="pill">Menos de $3,000</button>
-                  <button type="button" class="pill">$3,000–$7,999</button>
+                  <button type="button" class="pill">Menos de $500</button>
+                  <button type="button" class="pill">$600–$7,999</button>
                   <button type="button" class="pill">$8,000–$14,999</button>
                   <button type="button" class="pill">$15,000–$29,999</button>
                   <button type="button" class="pill">$30,000+</button>
@@ -4374,6 +4975,38 @@
 
       initQuoteForm(document.getElementById("quoteForm"));
       initQuoteForm(document.getElementById("quoteFormModal"));
+
+      // ===== Video modal open/close =====
+      (function () {
+        const overlay = document.getElementById("videoModalOverlay");
+        const closeBtn = document.getElementById("videoModalClose");
+        const player = document.getElementById("videoModalPlayer");
+        function openModal(src) {
+          player.src = src;
+          overlay.classList.add("open");
+          document.body.classList.add("modal-open");
+          player.currentTime = 0;
+          player.play().catch(() => {});
+        }
+        function closeModal() {
+          overlay.classList.remove("open");
+          document.body.classList.remove("modal-open");
+          player.pause();
+          player.removeAttribute("src");
+          player.load();
+        }
+        document.querySelectorAll(".testi-vcard").forEach((card) => {
+          card.addEventListener("click", () => openModal(card.dataset.video));
+        });
+        closeBtn.addEventListener("click", closeModal);
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && overlay.classList.contains("open"))
+            closeModal();
+        });
+      })();
 
       // ===== Quote modal open/close =====
       (function () {
