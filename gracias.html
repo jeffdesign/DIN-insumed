@@ -11,6 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560;9..144,650&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
     <style>
       /* =====================================================================
    INSUMED — THANK YOU PAGE
@@ -398,6 +399,30 @@
         margin-top: 16px;
         line-height: 1.5;
       }
+      .typ-calendar {
+        background-color: white;
+        width: 100%;
+        height: 80%;
+        border-radius: 20px;
+      }
+      @media (max-width: 860px) {
+        body {
+          padding: 10px;
+        }
+        .calendly-card {
+          height: 800px;
+          padding: 10px;
+        }
+      }
+      @media (max-width: 390px) {
+        body {
+          padding: 10px;
+        }
+        .calendly-card {
+          height: 800px;
+          padding: 10px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -673,7 +698,7 @@
           cotización.
         </p>
         <iframe
-          style="background-color: white; height: 100%"
+          class="typ-calendar"
           src="https://calendar.app.google/UxWEqHdQwKyQgxUT6"
           frameborder="0"
         ></iframe>
