@@ -638,7 +638,7 @@
               d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.7 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 1-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.7.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.4l-.4.5c-.1.2-.3.4-.1.7.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.2.1 1.5.7 1.8.8.3.2.5.2.5.4.1.2.1.7-.1 1.2z"
             />
           </svg>
-          Abrir WhatsApp
+          ¿Te interesa contactar por WhatsApp?
         </a>
         <p class="cta-note">
           Respuesta en minutos en horario laboral. Si escribes fuera de horario,
@@ -672,52 +672,11 @@
           Elige el horario que te acomode y platicamos directamente sobre tu
           cotización.
         </p>
-        <div class="cal-mock">
-          <div class="cal-mock-head">
-            <strong>Agosto 2026</strong>
-            <div class="cal-mock-nav">
-              <button aria-label="Mes anterior">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <button aria-label="Mes siguiente">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="cal-grid" id="calGrid">
-            <div class="dow">L</div>
-            <div class="dow">M</div>
-            <div class="dow">M</div>
-            <div class="dow">J</div>
-            <div class="dow">V</div>
-            <div class="dow">S</div>
-            <div class="dow">D</div>
-          </div>
-          <div class="cal-slots">
-            <span class="cal-slots-label">Horarios disponibles</span>
-            <div class="cal-slot">9:00 am</div>
-            <div class="cal-slot">1:00 pm</div>
-            <div class="cal-slot">5:00 pm</div>
-          </div>
-        </div>
-        <p class="cal-disclaimer">
-          Calendario de ejemplo — conecta aquí tu enlace real de Calendly para
-          agendar citas.
-        </p>
+        <iframe
+          style="background-color: white; height: 100%"
+          src="https://calendar.app.google/UxWEqHdQwKyQgxUT6"
+          frameborder="0"
+        ></iframe>
       </div>
     </div>
 
@@ -760,7 +719,7 @@
       /* =====================================================================
    CONFIG — edita aquí lo que cambie seguido
    ===================================================================== */
-      const WHATSAPP_NUMBER = "2463612020"; // reemplaza por el número real, sin + ni espacios
+      const WHATSAPP_NUMBER = "522463612020"; // reemplaza por el número real, sin + ni espacios
 
       // Arma el mensaje prellenado de WhatsApp a partir de lo que el usuario
       // seleccionó en el formulario de index.html (llega como parámetros en la URL).
